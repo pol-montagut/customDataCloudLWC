@@ -1,0 +1,167 @@
+*{
+    font-family:'Roboto',sans-serif;
+}
+
+:host {
+    display: block; /* Asegura que el componente se muestre como un bloque */
+    background-color: #8EC5FC;
+    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    
+    padding: 20px; /* Añade un espacio de relleno alrededor del componente */
+}
+.name{
+    font-size: large;
+}
+.image-container {
+    margin-right: 20px;
+    
+}
+
+.image-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin: 0 auto;
+}
+
+.details-container {
+    flex: 1;
+}
+
+.contact-details p {
+    margin: 5px 0;
+}
+
+.detail {
+    text-align: center;
+    margin-left: 5px 0;
+
+}
+
+.name{
+    text-align: center;
+}
+
+.imagen{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 100px;
+    
+}
+.separator {
+    width: 50%; /* Ajusta el ancho de la barra horizontal según sea necesario */
+    margin: 5px auto; /* Centra la barra horizontalmente */
+    border: none;
+    border-top: 5px solid #ffffff; /* Establece el estilo de la barra horizontal */
+}
+
+.separator2 {
+    width: 75%; /* Ajusta el ancho de la barra horizontal según sea necesario */
+    margin: 5px auto; /* Centra la barra horizontalmente */
+    border: none;
+    border-top: 2px solid #ffffff; /* Establece el estilo de la barra horizontal */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.separator3 {
+    width: 75%; /* Ajusta el ancho de la barra horizontal según sea necesario */
+    margin: 5px auto; /* Centra la barra horizontalmente */
+    border: none;
+    border-top: 2px solid #ffffff; /* Establece el estilo de la barra horizontal */
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.progress-container {
+    width: 75%;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.progress-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    border-radius: 10px;
+}
+
+.progress-label {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+}
+
+.progress {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+
+}
+
+.progress::-webkit-progress-value {
+    background-color: #0070c0;
+    border-radius: 10px;
+    
+}
+progress::-webkit-progress-bar {
+    width: 100%;
+    border: 0;
+    height: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+.progress-container2 {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+}
+
+.progress-label {
+    margin-top: 10px;
+}
+
+.progress-ring {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+}
+
+.progress-ring-circle {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 8;
+    
+}
+
+.progress-ring-circle-fill {
+    fill: none;
+    stroke: #0070c0; /* Color de la barra de progreso */
+    stroke-width: 8;
+    stroke-dasharray: 314; /* Circunferencia completa */
+    stroke-dashoffset: 0; /* Barra completa al principio */
+    transition: stroke-dashoffset 0.5s ease; /* Transición suave al cambiar el valor */
+}
+.testing{
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    margin-top: 40px;
+}
+.imagen1{
+    top: 10px; /* Ajusta la distancia desde el borde superior */
+    right: 10px; /* Ajusta la distancia desde el borde derecho */
+    width: 50px; /* Define el ancho de la imagen */
+    height: auto; /* La altura se ajusta automáticamente para mantener la proporción */
+    z-index: 999; /* Asegura que la imagen esté en la parte superior */
+}

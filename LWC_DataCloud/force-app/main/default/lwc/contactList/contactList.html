@@ -1,0 +1,20 @@
+<template>
+    <lightning-card>
+        <div class="unified-card">
+            <template if:true={currentContact}>
+                <div class="slds-m-around_medium slds-grid slds-grid_align-spread">
+                    <div>
+                        <p><b>Account Name:</b> {currentContact.AccountId}</p>
+                        <p><b>First Name:</b> {currentContact.FirstName}</p>
+                        <p><b>Last Name:</b> {currentContact.LastName}</p>
+                        <p><b>Email:</b> {currentContact.Email}</p>
+                    </div>
+                    <div class="arrow-buttons">
+                        <lightning-button-icon icon-name="utility:chevronleft" variant="border-filled" onclick={handlePrevious}></lightning-button-icon>
+                        <lightning-button-icon icon-name="utility:chevronright" variant="border-filled" onclick={handleNext}></lightning-button-icon>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

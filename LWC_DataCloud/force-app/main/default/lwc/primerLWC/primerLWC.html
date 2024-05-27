@@ -1,0 +1,96 @@
+<template>
+      <div class="details-container">
+          <h2 class = "name"> {nombre} {apellido}</h2>
+          <hr class = "separator"/>
+          <div class="contact-details">
+            <p>
+                <lightning-layout-item flexibility="auto" padding="around-small">
+                    <lightning-button
+                    variant="base" 
+                    label="" 
+                    class="slds-m-left_x-small"
+                    icon-name="utility:identity">
+                    </lightning-button>
+                    <strong>  User ID: </strong>
+                    <span class="detail">{id}</span>
+                </lightning-layout-item>
+            </p>
+            <p>
+                <lightning-layout-item flexibility="auto" padding="around-small">
+                    <lightning-button
+                    variant="base" 
+                    label="" 
+                    class="slds-m-left_x-small"
+                    icon-name="utility:email">
+                    </lightning-button>
+                    <strong>   Email: </strong>
+                    <span class="detail">{email}</span>
+                </lightning-layout-item>
+            </p>
+            <p>
+                <lightning-layout-item flexibility="auto" padding="around-small">
+                    <lightning-button
+                    variant="base" 
+                    label="" 
+                    class="slds-m-left_x-small"
+                    icon-name="utility:call">
+                    </lightning-button>
+                    <strong>   Teléfono: </strong>
+                    <span class="detail">{telefono}</span>
+                </lightning-layout-item>
+            </p>
+            <p>
+                <lightning-layout-item flexibility="auto" padding="around-small">
+                    <lightning-button
+                    variant="base" 
+                    label="" 
+                    class="slds-m-left_x-small"
+                    icon-name="utility:checkin">
+                    </lightning-button>
+                    <strong>   Dirección: </strong>
+                    <span class="detail">{direccion}</span>
+                </lightning-layout-item>
+            </p>
+        </div>
+        <hr class = "separator2"/>
+        <p>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <lightning-button
+                variant="base" 
+                label="" 
+                class="slds-m-left_x-small"
+                icon-name="utility:moneybag">
+                </lightning-button>
+                <strong>  Gasto Total: </strong>
+                <span class="detail">{gasto}</span>
+            </lightning-layout-item>
+        </p>
+                <div class="progress-label"><strong>Valor del cliente: </strong></div>
+                <progress class="progress" value={valor} max="100" ></progress>
+        </div>
+        <hr class = "separator3"/>
+        <div>
+            <p>
+                <lightning-layout-item flexibility="auto" padding="around-small">
+                    <lightning-button
+                    variant="base" 
+                    label="" 
+                    class="slds-m-left_x-small"
+                    icon-name="utility:setup_assistant_guide">
+                    </lightning-button>
+                    <strong>  Engagement Score: </strong>
+                </lightning-layout-item>
+            </p>
+            <div class="progress-container2">
+                <svg class="progress-ring" width="120" height="120">
+                    <circle class="progress-ring-circle" cx="60" cy="60" r="50" />
+                    <circle class="progress-ring-circle-fill" cx="60" cy="60" r="50" style ={progressStyle}></circle>
+                </svg>
+                <span class="testing">{engagement}%</span>
+            </div>
+        </div>
+        <hr class = "separator3"/>
+        <div>
+
+        </div>
+</template>
