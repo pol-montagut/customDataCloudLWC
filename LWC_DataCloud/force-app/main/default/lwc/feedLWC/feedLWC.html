@@ -1,14 +1,82 @@
 <template>
     <div class="activity-feed">
-        <h1>{titleFeed}</h1>
+        <h1>{fields.titleFeed}</h1>
+        
+        <!-- Phone Call -->
         <div class="activity">
-            <div class="icon phone"></div>
             <div class="details">
                 <div class="header">
-                    <span class="title">{titlePhoneCall}</span>
-                    <span class="time">{timePhoneCall}</span>
+                    <span class="title">{fields.titlePhoneCall}</span>
+                    <span class="time">{fields.timePhoneCall}</span>
                 </div>
-                <div class="action">{textPhoneCall}</div>
+                <div class="action">{fields.textPhoneCall}</div>
             </div>
         </div>
+        
+        <!-- Email Opened -->
+        <div class="activity">
+            <div class="details">
+                <div class="header">
+                    <span class="title">{fields.titleEmailOpened}</span>
+                    <span class="time">{fields.timeEmailOpened}</span>
+                </div>
+                <div class="action">{fields.textEmailOpened}</div>
+            </div>
+        </div>
+        
+        <!-- Email Sent -->
+        <div class="activity">
+            <div class="details">
+                <div class="header">
+                    <span class="title">{fields.titleEmailSent}</span>
+                    <span class="time">{fields.timeEmailSent}</span>
+                </div>
+                <div class="action">{fields.textEmailSent}</div>
+            </div>
+        </div>
+        
+        <!-- Website Visit -->
+        <div class="activity">
+            <div class="details">
+                <div class="header">
+                    <span class="title">{fields.titleWebsiteVisit}</span>
+                    <span class="time">{fields.timeWebsiteVisit}</span>
+                </div>
+                <div class="action">{fields.textWebsiteVisit}</div>
+            </div>
+        </div>
+        
+        <!-- Product Purchased -->
+        <div class="activity">
+            <div class="details">
+                <div class="header">
+                    <span class="title">{fields.titleProductPurchased}</span>
+                    <span class="time">{fields.timeProductPurchased}</span>
+                </div>
+                <div class="action">{fields.textProductPurchased}</div>
+            </div>
+        </div>
+        
+        <!-- Mobile App View -->
+        <div class="activity">
+            <div class="details">
+                <div class="header">
+                    <span class="title">{fields.titleMobileAppView}</span>
+                    <span class="time">{fields.timeMobileAppView}</span>
+                </div>
+                <div class="action">{fields.textMobileAppView}</div>
+            </div>
+        </div>
+        
+        <!-- ChatBot Support -->
+        <div class="activity">
+            <div class="details">
+                <div class="header">
+                    <span class="title">{fields.titleChatBotSupport}</span>
+                    <span class="time">{fields.timeChatBotSupport}</span>
+                </div>
+                <div class="action">{fields.textChatBotSupport}</div>
+            </div>
+        </div>
+    </div>
 </template>
