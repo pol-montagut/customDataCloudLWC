@@ -1,21 +1,35 @@
 import { LightningElement, api, wire } from 'lwc';
-import DB from '@salesforce/resourceUrl/datos';
-import getContact from '@salesforce/apex/ContactController.getContacts';
+//import DB from '@salesforce/resourceUrl/datos';
+//import getContact from '@salesforce/apex/ContactController.getContacts';
+import DataCloudController from '@salesforce/apex/DataCloudController.DataCloudController';
+
 
 export default class ActivityFeed_Natalia extends LightningElement {
     @api recordId;
     contactData;
     clientData;
+    Id;
+    Idc;
     stats = [];
 
-    @wire(getContact, { contactId: '$recordId' })
+    /*@wire(getContact, { contactId: '$recordId' })
     wiredContact({ data }) {
         if (data) {
             this.contactData = data;
             this.loadInfo();
         }
+    }*/
+    @wire(DataCloudController)
+    wiredContact({ data }) {
+        if (data) {
+            this.contactData = data;
+            this.Id = this.contactData.Id
+            this.Idc = this.contactData.ssot__Id__c
+            //this.loadInfo();
+        }
     }
-
+}
+    /*
     async loadInfo() {
         try {
             const response = await fetch(DB);
@@ -92,4 +106,4 @@ export default class ActivityFeed_Natalia extends LightningElement {
                 return 'default';
         }
     }
-}
+}*/
