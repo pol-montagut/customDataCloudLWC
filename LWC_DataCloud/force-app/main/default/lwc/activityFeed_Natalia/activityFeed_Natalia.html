@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Activity Feed" icon-name="custom:custom14">
+        <div class="timeline">
+            <template if:true={stats}>
+                <template for:each={stats} for:item="stat">
+                    <div key={stat.id} class="info">
+                        <div class="slds-media activity-border">
+                            <span class="slds-text-heading_small icon">
+                                <lightning-icon icon-name={stat.icon} alternative-text={stat.title}></lightning-icon>
+                            </span>
+                            <div class="slds-media__body">
+                                <h3 class="titol">
+                                    <p>{stat.title}</p>
+                                </h3>
+                                <p>{stat.details}</p>
+                            </div>
+                            <div class="slds-media__figure slds-timeline__actions">
+                                <div class="slds-timeline__actions">
+                                    <p class="slds-timeline__date">{stat.relativeTime}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

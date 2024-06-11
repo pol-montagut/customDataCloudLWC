@@ -1,0 +1,43 @@
+/* COLOR FONS */
+:host {
+    --slds-c-card-color-background: linear-gradient(180deg, #caf2ff 60%, #a0ffff 100%);
+}
+
+.timeline {
+    position: relative;
+    margin-left: 2em;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 5em;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.747);
+    z-index: 1;
+}
+
+.info{
+    background-color: #caf2ff;
+    position: relative;
+    margin: 3em;
+    z-index: 6;
+}
+.icon{
+    margin-right: 0.5em;
+}
+
+.titol{
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #08355d;
+}
+
+.activity-border {
+    border: 2px solid rgba(255, 255, 255, 0.747);
+    padding: 10px;
+    border-radius: 5px;
+}
+

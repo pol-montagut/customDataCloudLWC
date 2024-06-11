@@ -1,12 +1,12 @@
 public with sharing class ContactController {
     @AuraEnabled(cacheable=true)
-    public static List<Contact> getContacts() {
+    public static Contact getContacts(Id contactId) {
         return [
-            SELECT AccountId, FirstName, LastName, Email, 
-            Phone, MailingStreet, Birthdate
+            SELECT FirstName, LastName, Email , MobilePhone, MailingAddress, OtherAddress, AccountId, PTP__c
             FROM Contact
+            WHERE Id = :contactId
             WITH SECURITY_ENFORCED
-            ORDER BY FirstName
+            LIMIT 1
         ];
     }
 }
