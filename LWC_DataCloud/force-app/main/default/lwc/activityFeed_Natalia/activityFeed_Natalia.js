@@ -35,18 +35,17 @@ export default class ActivityFeed_Natalia extends LightningElement {
         }
     }
 
-    
     @wire(LinkQuery, { ssot_Id: '$Idc'})
     wiredLink({error,data}){
         if(data){
             this.linkData = data;
+            this.IdL = this.linkData.UnifiedRecordId__c
             this.Ids = this.linkData.SourceRecordId__c
         }
-    }
+    } 
 
-    
     @wire(EmailQuery, {SourceRecordId: '$Ids'})
-    wiredEmail({error,data}){
+    wiredEmail({data}){
         if(data){
             this.emailData = data;
             this.Ide = this.emailData.ssot__IndividualId__c
