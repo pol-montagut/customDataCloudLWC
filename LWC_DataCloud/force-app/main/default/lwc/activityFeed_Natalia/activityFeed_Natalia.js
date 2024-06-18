@@ -3,7 +3,7 @@ import { LightningElement, api, wire } from 'lwc';
 //import getContact from '@salesforce/apex/ContactController.getContacts';
 import DataCloudController from '@salesforce/apex/DataCloudController.DataCloudController';
 import LinkQuery from '@salesforce/apex/LinkQuery.LinkQuery';
-import EmailQuery from '@salesforce/apex/EmailQuery.EmailQuery'
+import EmailQuery from '@salesforce/apex/EmailQuery.EmailQuery';
 
 
 export default class ActivityFeed_Natalia extends LightningElement {
@@ -26,24 +26,25 @@ export default class ActivityFeed_Natalia extends LightningElement {
         }
     }*/
     @wire(DataCloudController)
-    wiredContact({data,error}) {
+    wiredContact({data}) {
         if (data) {
             this.contactData = data;
             this.Id = this.contactData.Id
             this.Idc = this.contactData.ssot__Id__c
             //this.loadInfo();
-        }else if(error){ 
-            console.log("no data")
         }
     }
-    test;
+
+    
     @wire(LinkQuery, { ssot_Id: '$Idc'})
-    wiredContact({error,data}){
+    wiredLink({error,data}){
         if(data){
             this.linkData = data;
             this.Ids = this.linkData.SourceRecordId__c
         }
     }
+}
+    /*
     @wire(EmailQuery, {SourceRecordId: '$Ids'})
     wiredContact({error,data}){
         if(data){
@@ -51,7 +52,7 @@ export default class ActivityFeed_Natalia extends LightningElement {
             this.Ide = this.emailData.ssot__IndividualId__c
         }
     }
-}
+}*/
     /*
     async loadInfo() {
         try {
