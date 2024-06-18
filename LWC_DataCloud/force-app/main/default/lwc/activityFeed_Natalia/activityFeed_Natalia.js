@@ -43,16 +43,16 @@ export default class ActivityFeed_Natalia extends LightningElement {
             this.Ids = this.linkData.SourceRecordId__c
         }
     }
-}
-    /*
+
+    
     @wire(EmailQuery, {SourceRecordId: '$Ids'})
-    wiredContact({error,data}){
+    wiredEmail({error,data}){
         if(data){
             this.emailData = data;
             this.Ide = this.emailData.ssot__IndividualId__c
         }
     }
-}*/
+}
     /*
     async loadInfo() {
         try {
