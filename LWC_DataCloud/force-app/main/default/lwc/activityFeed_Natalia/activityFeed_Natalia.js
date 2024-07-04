@@ -4,7 +4,7 @@ import { LightningElement, api, wire } from 'lwc';
 import DataCloudController from '@salesforce/apex/DataCloudController.DataCloudController';
 import LinkQuery from '@salesforce/apex/LinkQuery.LinkQuery';
 import EmailQuery from '@salesforce/apex/EmailQuery.EmailQuery';
-
+import ProductQuery from '@salesforce/apex/ProductQuery.ProductQuery';
 
 export default class ActivityFeed_Natalia extends LightningElement {
     @api recordId;
@@ -14,8 +14,11 @@ export default class ActivityFeed_Natalia extends LightningElement {
     Idc;
     Ids;
     Ide;
+    Idp;
     linkData;
     emailData;
+    productData;
+
     stats = [];
 
     /*@wire(getContact, { contactId: '$recordId' })
@@ -49,6 +52,13 @@ export default class ActivityFeed_Natalia extends LightningElement {
         if(data){
             this.emailData = data;
             this.Ide = this.emailData.ssot__IndividualId__c
+        }
+    }
+    @wire(ProductQuery, {SourceRecordId: '$Ids'})
+    wiredProduct({data}){
+        if(data){
+            this.productData = data;
+            this.Idp = this.productData.ssot__IndividualId__c
         }
     }
 }
