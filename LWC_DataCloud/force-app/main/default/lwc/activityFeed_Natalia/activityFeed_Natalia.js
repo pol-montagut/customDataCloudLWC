@@ -4,6 +4,10 @@ import { LightningElement, api, wire } from 'lwc';
 import DataCloudController from '@salesforce/apex/DataCloudController.DataCloudController';
 import LinkQuery from '@salesforce/apex/LinkQuery.LinkQuery';
 import EmailQuery from '@salesforce/apex/EmailQuery.EmailQuery';
+<<<<<<< HEAD
+=======
+import ProductQuery from '@salesforce/apex/ProductQuery.ProductQuery';
+>>>>>>> 184182b7800873bf1ca5eaa9d0de192d489c7def
 
 export default class ActivityFeed_Natalia extends LightningElement {
     @api recordId;
@@ -12,11 +16,14 @@ export default class ActivityFeed_Natalia extends LightningElement {
     Id;
     Idc;
     Ids = [];
-    element = [];
     //IdL = [];
     Ide;
     linkData = [];
+    Idp;
+    linkData;
     emailData;
+    productData;
+
     stats = [];
 
     /*@wire(getContact, { contactId: '$recordId' })
@@ -40,19 +47,26 @@ export default class ActivityFeed_Natalia extends LightningElement {
     wiredLink({error,data}){
         if(data){
             this.linkData = data;
+            this.Ids = []; // Reinicia la llista abans d'afegir nous elements
             for (let i = 0; i < data.length; i++) {
-                this.element = this.linkData[i].SourceRecordId__c;
-                //this.IdL = element.UnifiedRecordId__c
-                this.Ids.push(this.element);
+                let element = this.linkData[i].SourceRecordId__c; // Defineix element dins del bucle
+                this.Ids.push(element);
             }
         }
-    } 
+    }
 
     @wire(EmailQuery, {SourceRecordId: '$Ids'})
     wiredEmail({data}){
         if(data){
             this.emailData = data;
             this.Ide = this.emailData.ssot__IndividualId__c
+        }
+    }
+    @wire(ProductQuery, {SourceRecordId: '$Ids'})
+    wiredProduct({data}){
+        if(data){
+            this.productData = data;
+            this.Idp = this.productData.ssot__IndividualId__c
         }
     }
 }
