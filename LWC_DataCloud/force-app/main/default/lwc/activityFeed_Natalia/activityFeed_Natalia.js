@@ -5,16 +5,17 @@ import DataCloudController from '@salesforce/apex/DataCloudController.DataCloudC
 import LinkQuery from '@salesforce/apex/LinkQuery.LinkQuery';
 import EmailQuery from '@salesforce/apex/EmailQuery.EmailQuery';
 
-
 export default class ActivityFeed_Natalia extends LightningElement {
     @api recordId;
     contactData;
     clientData;
     Id;
     Idc;
-    Ids;
+    Ids = [];
+    element = [];
+    //IdL = [];
     Ide;
-    linkData;
+    linkData = [];
     emailData;
     stats = [];
 
@@ -39,8 +40,11 @@ export default class ActivityFeed_Natalia extends LightningElement {
     wiredLink({error,data}){
         if(data){
             this.linkData = data;
-            this.IdL = this.linkData.UnifiedRecordId__c
-            this.Ids = this.linkData.SourceRecordId__c
+            for (let i = 0; i < data.length; i++) {
+                this.element = this.linkData[i].SourceRecordId__c;
+                //this.IdL = element.UnifiedRecordId__c
+                this.Ids.push(this.element);
+            }
         }
     } 
 
@@ -66,7 +70,7 @@ export default class ActivityFeed_Natalia extends LightningElement {
                     const activityDate = this.parseDate(item.time);
                     return {
                         id: index,
-                        icon: `standard:${this.getIconName(item.title)}`, // Ensure correct format
+                        icon: `standard:${this.getIconName(item.title)}`,
                         title: item.title,
                         subtitle: '',
                         details: item.text,

@@ -34,7 +34,9 @@
             <p>Id unified individual: {Idc}</p>
             <strong>Segundo</strong>
             <p>Id unified Infividual desde el Link{IdL}</p>
-            <p>Id Link: {Ids}</p>
+            <template for:each={element} for:item="id">
+                <p key={id}>Id Link: {id}</p>
+            </template>
             <p>Id Email: {Ide}</p>
         </strong>
     </div>
