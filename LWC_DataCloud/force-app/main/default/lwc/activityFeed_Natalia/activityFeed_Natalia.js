@@ -4,10 +4,7 @@ import { LightningElement, api, wire } from 'lwc';
 import DataCloudController from '@salesforce/apex/DataCloudController.DataCloudController';
 import LinkQuery from '@salesforce/apex/LinkQuery.LinkQuery';
 import EmailQuery from '@salesforce/apex/EmailQuery.EmailQuery';
-<<<<<<< HEAD
-=======
 import ProductQuery from '@salesforce/apex/ProductQuery.ProductQuery';
->>>>>>> 184182b7800873bf1ca5eaa9d0de192d489c7def
 
 export default class ActivityFeed_Natalia extends LightningElement {
     @api recordId;
@@ -50,7 +47,11 @@ export default class ActivityFeed_Natalia extends LightningElement {
             this.Ids = []; // Reinicia la llista abans d'afegir nous elements
             for (let i = 0; i < data.length; i++) {
                 let element = this.linkData[i].SourceRecordId__c; // Defineix element dins del bucle
-                this.Ids.push(element);
+                console.log(element); // Afegir línia de depuració
+                if (!this.Ids.includes(element)) { // Comprova si l'element ja està a la llista
+                    this.Ids.push(element); // Afegeix només si no està a la llista
+                }
+                //this.loadInfo();
             }
         }
     }

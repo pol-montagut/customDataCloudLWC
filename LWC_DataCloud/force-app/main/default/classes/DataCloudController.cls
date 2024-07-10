@@ -4,7 +4,7 @@ public with sharing class DataCloudController {
         return[
             SELECT ssot__Id__c
             FROM UnifiedssotIndividualMain__dlm
-            WHERE ssot__Id__c =: '7695eb78406ae434bca4b42c2800f4a7'
+            WHERE ssot__Id__c =: '589ca891ac8471d87e6695ddcbded7ed'
             LIMIT 1
         ];
     }
