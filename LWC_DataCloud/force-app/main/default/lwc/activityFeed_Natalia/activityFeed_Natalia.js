@@ -13,14 +13,15 @@ export default class ActivityFeed_Natalia extends LightningElement {
     Id;
     Idc;
     Ids = [];
-    //IdL = [];
-    Ide;
+    IdEE = [];
     linkData = [];
+    emailData = [];
     Idp;
     linkData;
     emailData;
     productData;
-
+    //IdL = [];
+    //Ide;
     stats = [];
 
     /*@wire(getContact, { contactId: '$recordId' })
@@ -53,16 +54,54 @@ export default class ActivityFeed_Natalia extends LightningElement {
                 }
                 //this.loadInfo();
             }
+            this.fetchEmails();
         }
     }
 
-    @wire(EmailQuery, {SourceRecordId: '$Ids'})
+    fetchEmails() {
+        this.IdEE = []; // Reinicia la llista d'emails abans d'afegir nous elements
+        const promises = this.Ids.map(id => {
+            return EmailQuery({ SourceRecordId: id })
+                .then(result => {
+                    result.forEach(record => {
+                        if (!this.IdEE.includes(record.ssot__Id__c)) {
+                            this.IdEE.push(record.ssot__Id__c);
+                            console.log("HOLAAAAAAAAAAAAAAAA",this.IdEE);
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error(`Error fetching emails for ${id}:`, error);
+                });
+        });
+        Promise.all(promises)
+            .then(() => {
+                console.log('All emails fetched successfully:', this.IdEE);
+            })
+            .catch(error => {
+                console.error('Error fetching emails:', error);
+            });
+    }
+
+
+/*  NO FUNCIONA
+
+@wire(EmailQuery, {SourceRecordId: '$Ids'})
     wiredEmail({data}){
         if(data){
             this.emailData = data;
-            this.Ide = this.emailData.ssot__IndividualId__c
+            this.IdEE = [];
+            for (let i = 0; i < data.length; i++) {
+                let email = this.emailData[i].ssot__Id__c;
+                if (!this.IdEE.includes(email)) {
+                    this.IdEE.push(email);
+                }
+            }
+            //this.Ide = this.emailData.ssot__IndividualId__c
         }
-    }
+    } */
+
+
     @wire(ProductQuery, {SourceRecordId: '$Ids'})
     wiredProduct({data}){
         if(data){

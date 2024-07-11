@@ -9,3 +9,7 @@ public with sharing class DataCloudController {
         ];
     }
 }
+
+
+
+//7695eb78406ae434bca4b42c2800f4a7  --> Manuel Aneiros
