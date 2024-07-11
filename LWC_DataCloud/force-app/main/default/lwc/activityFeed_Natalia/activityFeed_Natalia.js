@@ -64,10 +64,32 @@ export default class ActivityFeed_Natalia extends LightningElement {
             return EmailQuery({ SourceRecordId: id })
                 .then(result => {
                     result.forEach(record => {
-                        if (!this.IdEE.includes(record.ssot__Id__c)) {
-                            this.IdEE.push(record.ssot__Id__c);
-                            console.log("HOLAAAAAAAAAAAAAAAA",this.IdEE);
+                        let openDate = 'No date available';
+                        if (record.OpenDate__c) {
+                            const date = new Date(record.OpenDate__c);
+                            if (!isNaN(date)) {
+                                openDate = this.getRelativeTime(date);
+                            } else {
+                                console.error(`Invalid date for record:`, record.OpenDate__c);
+                            }
                         }
+                        let clicDate = 'No date available';
+                        if (record.EventDateClick__c) {
+                            const date = new Date(record.EventDateClick__c);
+                            if (!isNaN(date)) {
+                                clicDate = this.getRelativeTime(date);
+                            } else {
+                                console.error(`Invalid date for record:`, record.EventDateClick__c);
+                            }
+                        }
+                        const emailData = {
+                            id: record.ssot__Id__c,
+                            openCount: record.OpenCount__c,
+                            clickCount: record.ClickCount__c,
+                            openDate: openDate,
+                            clicDate: clicDate
+                        };
+                        this.IdEE.push(emailData);
                     });
                 })
                 .catch(error => {
@@ -82,25 +104,42 @@ export default class ActivityFeed_Natalia extends LightningElement {
                 console.error('Error fetching emails:', error);
             });
     }
-
-
-/*  NO FUNCIONA
-
-@wire(EmailQuery, {SourceRecordId: '$Ids'})
-    wiredEmail({data}){
-        if(data){
-            this.emailData = data;
-            this.IdEE = [];
-            for (let i = 0; i < data.length; i++) {
-                let email = this.emailData[i].ssot__Id__c;
-                if (!this.IdEE.includes(email)) {
-                    this.IdEE.push(email);
-                }
-            }
-            //this.Ide = this.emailData.ssot__IndividualId__c
+    
+    get emailDataWithKeys() {
+        return this.IdEE.map(email => ({
+            ...email,
+            openKey: `${email.id}-open`,
+            clickKey: `${email.id}-click`
+        }));
+    }
+    
+    getRelativeTime(date) {
+        if (!(date instanceof Date) || isNaN(date)) {
+            return 'Invalid date';
         }
-    } */
-
+    
+        const now = new Date();
+        const diff = now - date;
+        const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+    
+        const seconds = Math.floor(diff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+        const weeks = Math.floor(days / 7);
+        const months = Math.floor(days / 30);
+        const years = Math.floor(days / 365);
+    
+        if (years > 0) return rtf.format(-years, 'year');
+        if (months > 0) return rtf.format(-months, 'month');
+        if (weeks > 0) return rtf.format(-weeks, 'week');
+        if (days > 0) return rtf.format(-days, 'day');
+        if (hours > 0) return rtf.format(-hours, 'hour');
+        if (minutes > 0) return rtf.format(-minutes, 'minute');
+        return rtf.format(-seconds, 'second');
+    }
+    
+    
 
     @wire(ProductQuery, {SourceRecordId: '$Ids'})
     wiredProduct({data}){
@@ -147,27 +186,7 @@ export default class ActivityFeed_Natalia extends LightningElement {
         return new Date(dateString);
     }
 
-    getRelativeTime(date) {
-        const now = new Date();
-        const diff = now - date;
-        const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-
-        const seconds = Math.floor(diff / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
-        const weeks = Math.floor(days / 7);
-        const months = Math.floor(days / 30);
-        const years = Math.floor(days / 365);
-
-        if (years > 0) return rtf.format(-years, 'year');
-        if (months > 0) return rtf.format(-months, 'month');
-        if (weeks > 0) return rtf.format(-weeks, 'week');
-        if (days > 0) return rtf.format(-days, 'day');
-        if (hours > 0) return rtf.format(-hours, 'hour');
-        if (minutes > 0) return rtf.format(-minutes, 'minute');
-        return rtf.format(-seconds, 'second');
-    }
+    
 
     getIconName(type) {
         switch (type) {
