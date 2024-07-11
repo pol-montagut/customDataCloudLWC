@@ -59,7 +59,8 @@ export default class ActivityFeed_Natalia extends LightningElement {
     }
 
     fetchEmails() {
-        this.IdEE = []; // Reinicia la llista d'emails abans d'afegir nous elements
+        let tempIdEE = []; // Array temporal per emmagatzemar les dades abans d'ordenar-les
+    
         const promises = this.Ids.map(id => {
             return EmailQuery({ SourceRecordId: id })
                 .then(result => {
@@ -88,23 +89,35 @@ export default class ActivityFeed_Natalia extends LightningElement {
                             openCount: record.OpenCount__c,
                             clickCount: record.ClickCount__c,
                             openDate: openDate,
-                            clicDate: clicDate
+                            openTimestamp: record.OpenDate__c ? new Date(record.OpenDate__c).getTime() : null, // Timestamp per ordenar
+                            clicDate: clicDate,
+                            clickTimestamp: record.EventDateClick__c ? new Date(record.EventDateClick__c).getTime() : null // Timestamp per ordenar
                         };
-                        this.IdEE.push(emailData);
+                        tempIdEE.push(emailData);
                     });
                 })
                 .catch(error => {
                     console.error(`Error fetching emails for ${id}:`, error);
                 });
         });
+    
         Promise.all(promises)
             .then(() => {
-                console.log('All emails fetched successfully:', this.IdEE);
+                // Ordena les dades per openTimestamp i clickTimestamp, de més recents a més antigues
+                tempIdEE.sort((a, b) => {
+                    const openDiff = (b.openTimestamp || 0) - (a.openTimestamp || 0);
+                    const clickDiff = (b.clickTimestamp || 0) - (a.clickTimestamp || 0);
+                    return openDiff !== 0 ? openDiff : clickDiff;
+                });
+    
+                this.IdEE = tempIdEE;
+                console.log('All emails fetched and sorted successfully:', this.IdEE);
             })
             .catch(error => {
                 console.error('Error fetching emails:', error);
             });
     }
+    
     
     get emailDataWithKeys() {
         return this.IdEE.map(email => ({
