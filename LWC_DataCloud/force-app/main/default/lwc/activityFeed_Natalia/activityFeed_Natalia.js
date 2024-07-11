@@ -84,6 +84,7 @@ export default class ActivityFeed_Natalia extends LightningElement {
                         }
                         const emailData = {
                             id: record.ssot__Id__c,
+                            name: record.ssot__EmailName__c,
                             openCount: record.OpenCount__c,
                             clickCount: record.ClickCount__c,
                             openDate: openDate,
@@ -120,6 +121,17 @@ export default class ActivityFeed_Natalia extends LightningElement {
     
         const now = new Date();
         const diff = now - date;
+    
+        // Si la diferència és més gran que un any, retornem la data en format "dia/mes/any"
+        if (diff > 365 * 24 * 60 * 60 * 1000) {
+            const day = date.getDate();
+            const month = date.getMonth() + 1; // Els mesos comencen amb 0 (Gener és 0)
+            const year = date.getFullYear();
+    
+            return `${day}/${month}/${year}`;
+        }
+    
+        // Si la diferència és menor o igual a un any, continuem amb el tractament normal
         const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
     
         const seconds = Math.floor(diff / 1000);
