@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, wire, track } from 'lwc';
 //import DB from '@salesforce/resourceUrl/datos';
 //import getContact from '@salesforce/apex/ContactController.getContacts';
 import DataCloudController from '@salesforce/apex/DataCloudController.DataCloudController';
@@ -13,7 +13,7 @@ export default class ActivityFeed_Natalia extends LightningElement {
     Id;
     Idc;
     Ids = [];
-    IdEE = [];
+    @track IdEE = [];
     linkData = [];
     emailData = [];
     Idp;
