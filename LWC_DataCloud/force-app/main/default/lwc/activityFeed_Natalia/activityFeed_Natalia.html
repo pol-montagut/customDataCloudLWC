@@ -28,7 +28,6 @@
 </template>-->
 <template>
     <lightning-card title="Activity Feed" icon-name="custom:custom14">
-        <div class="timeline">
             <template if:true={emailDataWithKeys}>
                 <template for:each={emailDataWithKeys} for:item="emailData">
                     <template if:true={emailData.openCount}>
@@ -56,7 +55,7 @@
                         <div key={emailData.clickKey} class="info">
                             <div class="slds-media activity-border">
                                 <span class="slds-text-heading_small icon">
-                                    <lightning-icon icon-name="utility:touch_action" alternative-text="Click Email"></lightning-icon>
+                                    <lightning-icon icon-name="standard:marketing_actions" alternative-text="Click Email"></lightning-icon>
                                 </span>
                                 <div class="slds-media__body">
                                     <h3 class="titol">
@@ -75,7 +74,6 @@
                     </template>
                 </template>
             </template>
-        </div>
     </lightning-card>
 </template>
 
