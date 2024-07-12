@@ -3,6 +3,18 @@
     --slds-c-card-color-background: #FFF;
 }
 
+
+.open{
+    --slds-c-icon-color-foreground-default: rgb(67, 118, 228);
+    --slds-c-icon-color-background: white;
+}
+
+.clic{
+    --slds-c-icon-color-foreground-default: rgb(22, 147, 16);
+    --slds-c-icon-color-background: white;
+}
+
+
 .info{
     background-color: #fff;
     position: relative;

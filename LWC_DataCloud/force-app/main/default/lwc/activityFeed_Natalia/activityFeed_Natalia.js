@@ -1,6 +1,8 @@
 import { LightningElement, api, wire, track } from 'lwc';
 //import DB from '@salesforce/resourceUrl/datos';
 //import getContact from '@salesforce/apex/ContactController.getContacts';
+//import JSZip from 'jszip';
+//import icons from '@salesforce/resourceUrl/icons_activity_feed';
 import DataCloudController from '@salesforce/apex/DataCloudController.DataCloudController';
 import LinkQuery from '@salesforce/apex/LinkQuery.LinkQuery';
 import EmailQuery from '@salesforce/apex/EmailQuery.EmailQuery';
@@ -16,6 +18,7 @@ export default class ActivityFeed_Natalia extends LightningElement {
     @track IdEE = [];
     linkData = [];
     emailData = [];
+    //iconas;
     Idp;
     linkData;
     emailData;
@@ -117,6 +120,8 @@ export default class ActivityFeed_Natalia extends LightningElement {
                 console.error('Error fetching emails:', error);
             });
     }
+
+
     
     
     get emailDataWithKeys() {
@@ -163,7 +168,6 @@ export default class ActivityFeed_Natalia extends LightningElement {
         if (minutes > 0) return rtf.format(-minutes, 'minute');
         return rtf.format(-seconds, 'second');
     }
-    
     
 
     @wire(ProductQuery, {SourceRecordId: '$Ids'})
@@ -232,3 +236,64 @@ export default class ActivityFeed_Natalia extends LightningElement {
         }
     }
 }*/
+
+
+
+
+/*   ICONS PERSONALIZADAS CODIGO
+
+
+    get emailOpenIcon() {
+        return this.icons['abrir-correo.png'] || '';
+    }
+
+    get clicIcon() {
+        return this.icons['clic.png'] || '';
+    }
+
+
+        async loadIcons() {
+        try {
+            const response = await fetch(icons);
+            if (!response.ok) {
+                throw new Error('No s\'ha pogut carregar el fitxer JSON');
+            }
+            const data = await response.json();
+            this.iconas = data;
+        } catch (error) {
+            console.error('Error al carregar les icones:', error);
+        }
+    }
+
+
+    @track icons = {};
+
+    async connectedCallback() {
+        await this.loadIcons();
+    }
+
+    async loadIcons() {
+        try {
+            const response = await fetch(iconsUrl);
+            if (!response.ok) {
+                throw new Error('No s\'ha pogut carregar el fitxer ZIP');
+            }
+            const blob = await response.blob();
+            const zip = await JSZip.loadAsync(blob);
+            const iconFiles = Object.keys(zip.files);
+
+            for (const fileName of iconFiles) {
+                const file = zip.file(fileName);
+                if (file) {
+                    const content = await file.async('base64');
+                    this.icons[fileName] = `data:image/png;base64,${content}`;
+                }
+            }
+        } catch (error) {
+            console.error('Error al carregar les icones:', error);
+        }
+    }
+    
+
+
+    */
