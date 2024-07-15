@@ -28,10 +28,11 @@
 </template>-->
 <template>
     <lightning-card title="Activity Feed" icon-name="custom:custom14">
-            <template if:true={emailDataWithKeys}>
-                <template for:each={emailDataWithKeys} for:item="emailData">
-                    <template if:true={emailData.openCount}>
-                        <div key={emailData.openKey} class="info">
+        <div class="activity-feed-container">
+            <template if:true={allData}>
+                <template for:each={allData} for:item="item">
+                    <template if:true={item.openCount}>
+                        <div key={item.id} class="info">
                             <div class="slds-media activity-border">
                                 <span class="slds-text-heading_small icon">
                                     <lightning-icon icon-name="utility:email_open" alternative-text="Open Email" class="open"></lightning-icon>
@@ -40,19 +41,19 @@
                                     <h3 class="titol">
                                         <p>Open Email</p>
                                     </h3>
-                                    <p class="nom">{emailData.name}</p>
-                                    <p>{emailData.openCount} times</p>
+                                    <p class="nom">{item.name}</p>
+                                    <p>{item.openCount} times</p>
                                 </div>
                                 <div class="slds-media__figure slds-timeline__actions">
                                     <div class="slds-timeline__actions">
-                                        <p class="slds-timeline__date">{emailData.openDate}</p>
+                                        <p class="slds-timeline__date">{item.openDate}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </template>
-                    <template if:true={emailData.clickCount}>
-                        <div key={emailData.clickKey} class="info">
+                    <template if:true={item.clickCount}>
+                        <div key={item.id} class="info">
                             <div class="slds-media activity-border">
                                 <span class="slds-text-heading_small icon">
                                     <lightning-icon icon-name="utility:touch_action" alternative-text="Click Email" class="clic"></lightning-icon>
@@ -61,12 +62,32 @@
                                     <h3 class="titol">
                                         <p>Click Email</p>
                                     </h3>
-                                    <p class="nom">{emailData.name}</p>
-                                    <p>{emailData.clickCount} times</p>
+                                    <p class="nom">{item.name}</p>
+                                    <p>{item.clickCount} times</p>
                                 </div>
                                 <div class="slds-media__figure slds-timeline__actions">
                                     <div class="slds-timeline__actions">
-                                        <p class="slds-timeline__date">{emailData.clicDate}</p>
+                                        <p class="slds-timeline__date">{item.clicDate}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <template if:true={item.engagementTimestamp}>
+                        <div key={item.id} class="info">
+                            <div class="slds-media activity-border">
+                                <span class="slds-text-heading_small icon">
+                                    <lightning-icon icon-name="utility:product" alternative-text="Product Browse" class="product"></lightning-icon>
+                                </span>
+                                <div class="slds-media__body">
+                                    <h3 class="titol">
+                                        <p>Product Browse</p>
+                                    </h3>
+                                    <p class="nom">{item.name}</p>
+                                </div>
+                                <div class="slds-media__figure slds-timeline__actions">
+                                    <div class="slds-timeline__actions">
+                                        <p class="slds-timeline__date">{item.engagementDate}</p>
                                     </div>
                                 </div>
                             </div>
@@ -74,6 +95,7 @@
                     </template>
                 </template>
             </template>
+        </div>
     </lightning-card>
 </template>
 
@@ -86,9 +108,9 @@
             <p>Id unified individual: {Idc}</p>
             <strong>Segundo</strong>
             
-            <template for:each={Ids} for:item="id">
-                <p key={id}>Id Link: {id}</p>
-            </template>
+        <template for:each={Ids} for:item="id">
+            <p key={id}>Id Link: {id}</p>
+        </template>
 
             <template for:each={IdEE} for:item="emailData">
                 <div key={emailData.id}>

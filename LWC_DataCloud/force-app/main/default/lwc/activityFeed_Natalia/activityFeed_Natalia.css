@@ -4,6 +4,11 @@
 }
 
 
+.activity-feed-container {
+    max-height: 600px; /* Ajusteu aquesta altura segons les vostres necessitats */
+    overflow-y: auto;
+}
+
 .open{
     --slds-c-icon-color-foreground-default: rgb(67, 118, 228);
     --slds-c-icon-color-background: white;

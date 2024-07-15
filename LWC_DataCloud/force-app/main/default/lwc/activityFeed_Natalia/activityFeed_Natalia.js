@@ -1,8 +1,4 @@
 import { LightningElement, api, wire, track } from 'lwc';
-//import DB from '@salesforce/resourceUrl/datos';
-//import getContact from '@salesforce/apex/ContactController.getContacts';
-//import JSZip from 'jszip';
-//import icons from '@salesforce/resourceUrl/icons_activity_feed';
 import DataCloudController from '@salesforce/apex/DataCloudController.DataCloudController';
 import LinkQuery from '@salesforce/apex/LinkQuery.LinkQuery';
 import EmailQuery from '@salesforce/apex/EmailQuery.EmailQuery';
@@ -16,54 +12,43 @@ export default class ActivityFeed_Natalia extends LightningElement {
     Idc;
     Ids = [];
     @track IdEE = [];
+    @track IdPE = [];
+    @track emailDataWithKeys = [];
+    @track productDataWithKeys = [];
     linkData = [];
     emailData = [];
-    //iconas;
-    Idp;
-    linkData;
-    emailData;
     productData;
-    //IdL = [];
-    //Ide;
     stats = [];
+    allData = []; // Ensure allData is declared
 
-    /*@wire(getContact, { contactId: '$recordId' })
-    wiredContact({ data }) {
-        if (data) {
-            this.contactData = data;
-            this.loadInfo();
-        }
-    }*/
     @wire(DataCloudController)
     wiredContact({data}) {
         if (data) {
             this.contactData = data;
-            this.Id = this.contactData.Id
-            this.Idc = this.contactData.ssot__Id__c
-            //this.loadInfo();
+            this.Id = this.contactData.Id;
+            this.Idc = this.contactData.ssot__Id__c;
         }
     }
 
     @wire(LinkQuery, { ssot_Id: '$Idc'})
-    wiredLink({error,data}){
-        if(data){
+    wiredLink({error, data}) {
+        if (data) {
             this.linkData = data;
-            this.Ids = []; // Reinicia la llista abans d'afegir nous elements
+            this.Ids = [];
             for (let i = 0; i < data.length; i++) {
-                let element = this.linkData[i].SourceRecordId__c; // Defineix element dins del bucle
-                console.log(element); // Afegir línia de depuració
-                if (!this.Ids.includes(element)) { // Comprova si l'element ja està a la llista
-                    this.Ids.push(element); // Afegeix només si no està a la llista
+                let element = this.linkData[i].SourceRecordId__c;
+                console.log(element);
+                if (!this.Ids.includes(element)) {
+                    this.Ids.push(element);
                 }
-                //this.loadInfo();
             }
             this.fetchEmails();
+            this.fetchProducts();
         }
     }
 
     fetchEmails() {
-        let tempIdEE = []; // Array temporal per emmagatzemar les dades abans d'ordenar-les
-    
+        let tempIdEE = [];
         const promises = this.Ids.map(id => {
             return EmailQuery({ SourceRecordId: id })
                 .then(result => {
@@ -73,8 +58,6 @@ export default class ActivityFeed_Natalia extends LightningElement {
                             const date = new Date(record.OpenDate__c);
                             if (!isNaN(date)) {
                                 openDate = this.getRelativeTime(date);
-                            } else {
-                                console.error(`Invalid date for record:`, record.OpenDate__c);
                             }
                         }
                         let clicDate = 'No date available';
@@ -82,8 +65,6 @@ export default class ActivityFeed_Natalia extends LightningElement {
                             const date = new Date(record.EventDateClick__c);
                             if (!isNaN(date)) {
                                 clicDate = this.getRelativeTime(date);
-                            } else {
-                                console.error(`Invalid date for record:`, record.EventDateClick__c);
                             }
                         }
                         const emailData = {
@@ -92,9 +73,9 @@ export default class ActivityFeed_Natalia extends LightningElement {
                             openCount: record.OpenCount__c,
                             clickCount: record.ClickCount__c,
                             openDate: openDate,
-                            openTimestamp: record.OpenDate__c ? new Date(record.OpenDate__c).getTime() : null, // Timestamp per ordenar
+                            openTimestamp: record.OpenDate__c ? new Date(record.OpenDate__c).getTime() : null,
                             clicDate: clicDate,
-                            clickTimestamp: record.EventDateClick__c ? new Date(record.EventDateClick__c).getTime() : null // Timestamp per ordenar
+                            clickTimestamp: record.EventDateClick__c ? new Date(record.EventDateClick__c).getTime() : null
                         };
                         tempIdEE.push(emailData);
                     });
@@ -103,55 +84,111 @@ export default class ActivityFeed_Natalia extends LightningElement {
                     console.error(`Error fetching emails for ${id}:`, error);
                 });
         });
-    
+
         Promise.all(promises)
             .then(() => {
-                // Ordena les dades per openTimestamp i clickTimestamp, de més recents a més antigues
                 tempIdEE.sort((a, b) => {
                     const openDiff = (b.openTimestamp || 0) - (a.openTimestamp || 0);
                     const clickDiff = (b.clickTimestamp || 0) - (a.clickTimestamp || 0);
                     return openDiff !== 0 ? openDiff : clickDiff;
                 });
-    
+
                 this.IdEE = tempIdEE;
                 console.log('All emails fetched and sorted successfully:', this.IdEE);
+                this.combineAndSortData();
             })
             .catch(error => {
                 console.error('Error fetching emails:', error);
             });
     }
 
+    fetchProducts() {
+        let tempIdPE = [];
+        const promises = this.Ids.map(id => {
+            return ProductQuery({ SourceRecordId: id })
+                .then(result => {
+                    if (Array.isArray(result)) {
+                        result.forEach(record => {
+                            let productDate = 'No date available';
+                            if (record.ssot__EngagementDateTm__c) {
+                                const date = new Date(record.ssot__EngagementDateTm__c);
+                                if (!isNaN(date)) {
+                                    productDate = this.getRelativeTime(date);
+                                }
+                            }
+                            const productData = {
+                                id: record.ssot__Id__c,
+                                individualId: record.ssot__IndividualId__c,
+                                name: record.ssot__EngagementChannelActionId__c,
+                                engagementDate: productDate,
+                                engagementTimestamp: record.ssot__EngagementDateTm__c ? new Date(record.ssot__EngagementDateTm__c).getTime() : null
+                            };
+                            tempIdPE.push(productData);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error(`Error fetching products for ${id}:`, error);
+                });
+        });
 
-    
-    
-    get emailDataWithKeys() {
-        return this.IdEE.map(email => ({
+        Promise.all(promises)
+            .then(() => {
+                tempIdPE.sort((a, b) => (b.engagementTimestamp || 0) - (a.engagementTimestamp || 0));
+                this.IdPE = tempIdPE;
+                console.log('All products fetched and sorted successfully:', this.IdPE);
+                this.combineAndSortData();
+            })
+            .catch(error => {
+                console.error('Error fetching products:', error);
+            });
+    }
+
+    combineAndSortData() {
+        if (this.IdEE && this.IdPE) {
+            const combinedData = [...this.IdEE, ...this.IdPE];
+            combinedData.sort((a, b) => {
+                const timestampA = a.engagementTimestamp || a.openTimestamp || 0;
+                const timestampB = b.engagementTimestamp || b.openTimestamp || 0;
+                return timestampB - timestampA;
+            });
+
+            this.allData = combinedData;
+            console.log('All data combined and sorted successfully:', this.allData);
+            this.updateComponent();
+        }
+    }
+
+    updateComponent() {
+        this.emailDataWithKeys = this.allData.filter(item => item.openTimestamp || item.clickTimestamp).map(email => ({
             ...email,
             openKey: `${email.id}-open`,
             clickKey: `${email.id}-click`
         }));
+
+        this.productDataWithKeys = this.allData.filter(item => item.engagementTimestamp).map(product => ({
+            ...product,
+            productKey: `${product.id}-product`
+        }));
     }
-    
+
     getRelativeTime(date) {
         if (!(date instanceof Date) || isNaN(date)) {
             return 'Invalid date';
         }
-    
+
         const now = new Date();
         const diff = now - date;
-    
-        // Si la diferència és més gran que un any, retornem la data en format "dia/mes/any"
+
         if (diff > 365 * 24 * 60 * 60 * 1000) {
             const day = date.getDate();
-            const month = date.getMonth() + 1; // Els mesos comencen amb 0 (Gener és 0)
+            const month = date.getMonth() + 1;
             const year = date.getFullYear();
-    
             return `${day}/${month}/${year}`;
         }
-    
-        // Si la diferència és menor o igual a un any, continuem amb el tractament normal
+
         const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-    
+
         const seconds = Math.floor(diff / 1000);
         const minutes = Math.floor(seconds / 60);
         const hours = Math.floor(minutes / 60);
@@ -159,7 +196,7 @@ export default class ActivityFeed_Natalia extends LightningElement {
         const weeks = Math.floor(days / 7);
         const months = Math.floor(days / 30);
         const years = Math.floor(days / 365);
-    
+
         if (years > 0) return rtf.format(-years, 'year');
         if (months > 0) return rtf.format(-months, 'month');
         if (weeks > 0) return rtf.format(-weeks, 'week');
@@ -168,16 +205,8 @@ export default class ActivityFeed_Natalia extends LightningElement {
         if (minutes > 0) return rtf.format(-minutes, 'minute');
         return rtf.format(-seconds, 'second');
     }
-    
-
-    @wire(ProductQuery, {SourceRecordId: '$Ids'})
-    wiredProduct({data}){
-        if(data){
-            this.productData = data;
-            this.Idp = this.productData.ssot__IndividualId__c
-        }
-    }
 }
+
     /*
     async loadInfo() {
         try {
@@ -293,7 +322,19 @@ export default class ActivityFeed_Natalia extends LightningElement {
             console.error('Error al carregar les icones:', error);
         }
     }
-    
 
+    //import DB from '@salesforce/resourceUrl/datos';
+//import getContact from '@salesforce/apex/ContactController.getContacts';
+//import JSZip from 'jszip';
+//import icons from '@salesforce/resourceUrl/icons_activity_feed';
+        //IdL = [];
+    //Ide;
+    //iconas;
 
-    */
+    /*@wire(getContact, { contactId: '$recordId' })
+    wiredContact({ data }) {
+        if (data) {
+            this.contactData = data;
+            this.loadInfo();
+        }
+    }*/
