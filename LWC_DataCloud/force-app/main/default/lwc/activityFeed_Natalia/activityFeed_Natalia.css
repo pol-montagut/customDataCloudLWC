@@ -5,7 +5,7 @@
 
 
 .activity-feed-container {
-    max-height: 600px; /* Ajusteu aquesta altura segons les vostres necessitats */
+    max-height: 900px; /* Ajusteu aquesta altura segons les vostres necessitats */
     overflow-y: auto;
 }
 

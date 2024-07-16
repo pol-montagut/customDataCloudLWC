@@ -116,10 +116,15 @@ export default class ActivityFeed_Natalia extends LightningElement {
                                     productDate = this.getRelativeTime(date);
                                 }
                             }
+                            let name = record.ssot__EngagementChannelActionId__c;
+                            // Remove the keywords "Iberdrola" and "-"
+                            if (name) {
+                                name = name.replace('Iberdrola', '').replace('-', '').trim();
+                            }
                             const productData = {
                                 id: record.ssot__Id__c,
                                 individualId: record.ssot__IndividualId__c,
-                                name: record.ssot__EngagementChannelActionId__c,
+                                name: name,
                                 engagementDate: productDate,
                                 engagementTimestamp: record.ssot__EngagementDateTm__c ? new Date(record.ssot__EngagementDateTm__c).getTime() : null
                             };
