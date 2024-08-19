@@ -1,0 +1,352 @@
+<template>
+  <lightning-card class="custom-card">
+    <div class="slds-m-around_large custom-background">
+      <div class="contact-container">
+        <template if:true={contactData}>
+          <div class="contact-header slds-grid slds-wrap slds-grid_align-start">
+            <!--<span
+              class="slds-avatar slds-avatar-group_large slds-avatar_circle"
+            >-->
+            <lightning-avatar variant="circle" size="large" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" initials="AW"
+            fallback-icon-name="standard:person_account" alternative-text="Amy Weaver" class="slds-m-right_small"></lightning-avatar>
+              <!--<<lightning-avatar size="large"  variant="circle" class="slds-m-right_small" scr="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg"
+              fallback-icon-name="standard:user" ></lightning-avatar>
+            /span>-->
+            <div class="slds-m-left_small">
+              <h1 style="font-size: 18px">
+                <strong>{firstName} {lastName}</strong>
+              </h1>
+              <h6>Buenos Aires, AG</h6>
+            </div>
+          </div>
+          <br/>
+          <div class="contact-body">
+            <br />
+            <p style="font-size: 14px">
+              <span style="color: white"
+                ><lightning-icon
+                  icon-name="utility:contact"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              Unified Individual ID<strong class="contactData">{Idcn}</strong>
+    
+              </p>
+              <br />
+              <p style="font-size: 14px">
+              <span style="color: white"
+                ><lightning-icon
+                  icon-name="utility:file"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              ID Type<strong class="contactData">{tipoDoc}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ID Number<strong class="contactData">{numDoc}</strong>
+    
+              </p>
+            
+            <br />
+            <p style="font-size: 14px">
+              <span style="color: white"
+                ><lightning-icon
+                  icon-name="utility:dayview"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              Birthdate<strong class="contactData">{birthdate}</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   Age<strong class="contactData">{age}</strong>
+    
+              </p>
+            <br />
+            <p style="font-size: 14px">
+              <span style="color: white;"
+                ><lightning-icon
+                  icon-name="utility:transport_walking"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              Gender<strong class="contactData">Male</strong>
+    
+              </p>
+            <br />
+            <p style="font-size: 14px">
+              <span style="color: white"
+                ><lightning-icon
+                  icon-name="utility:priority"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              Nationality<strong class="contactData">{nationality}</strong>
+    
+              </p>
+            <br />
+            <p style="font-size: 14px">
+              <span style="color: white"
+                ><lightning-icon
+                  icon-name="utility:location"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              Address<strong class="contactData"
+                >Calle San Francisco, 24</strong
+              >
+            </p>
+            <br />
+            <p style="font-size: 14px">
+              <span style="color: white"
+                ><lightning-icon
+                  icon-name="utility:email"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              Email Address<strong class="contactData"
+                >manuel.aneiros@test.com</strong
+              >
+            </p>
+            <br />
+            <p style="font-size: 14px">
+              <span style="color: white"
+                ><lightning-icon
+                  icon-name="utility:phone_portrait"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              Phone Number<strong class="contactData">+34 678901235</strong>
+            </p>
+            <br />
+            
+          </div>
+          <div
+            class="slds-border_bottom"
+            style="
+              border-bottom: 1.8px solid white;
+              margin-top: 5px;
+              margin-bottom: 5px;
+            "
+          ></div>
+          <br />
+          
+        <p style="font-size: 14px">
+              <span style="color: white"
+                ><lightning-icon
+                  icon-name="utility:people"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              Client Type<strong class="contactData">{clientType}</strong>
+    
+              </p>
+            <br />
+            <p style="font-size: 14px">
+              <span style="color: white"
+                ><lightning-icon
+                  icon-name="utility:case"
+                  size="x-small"
+                  class="icon slds-current-color"
+                ></lightning-icon
+              ></span>
+              Company<strong class="contactData">{empresa}</strong>
+    
+              </p>
+            <br />
+            <p style="font-size: 14px">
+          <span style="color: white"
+            ><lightning-icon
+              icon-name="utility:product_service_campaign_item"
+              size="x-small"
+              class="icon slds-current-color"
+            ></lightning-icon
+          ></span>
+          Hired Product<strong class="contactData">{productoContratado}</strong>
+
+          </p>
+        <br />
+        <p style="font-size: 14px">
+          <span style="color: white"
+            ><lightning-icon
+              icon-name="utility:smiley_and_people"
+              size="x-small"
+              class="icon slds-current-color"
+            ></lightning-icon
+          ></span>
+          Interest<strong class="contactData">{interest}</strong>
+
+          </p>
+        <br />
+        
+        <p style="font-size: 14px">
+          <span style="color: white"
+            ><lightning-icon
+              icon-name="utility:announcement"
+              size="x-small"
+              class="icon slds-current-color"
+            ></lightning-icon
+          ></span>
+          GDPR<strong class="contactData">{GDPR}</strong>
+
+          </p>
+        <br />
+
+
+
+          <div
+            class="slds-border_bottom"
+            style="
+              border-bottom: 1.8px solid white;
+              margin-top: 5px;
+              margin-bottom: 5px;
+            "
+          ></div>
+          <br />
+          <p style="font-size: 14px">
+            <span style="color: white"
+              ><lightning-icon
+                icon-name="utility:cart"
+                size="x-small"
+                class="icon slds-current-color"
+              ></lightning-icon
+            ></span>
+            Tenders Average<strong class="contactData"><lightning-formatted-number value={tendersAvg} format-style="currency" currency-code="EUR"></lightning-formatted-number> </strong>
+          </p>
+          <br />
+          <p style="font-size: 14px">
+            <span style="color: white"
+              ><lightning-icon
+                icon-name="utility:shopping_bag"
+                size="x-small"
+                class="icon slds-current-color"
+              ></lightning-icon
+            ></span>
+            Tenders petitions<strong class="contactData">{tendersPetition}</strong
+            ><br />
+          </p>
+          <br />
+
+          <div
+            class="slds-border_bottom"
+            style="
+              border-bottom: 1.8px solid white;
+              margin-top: 5px;
+              margin-bottom: 5px;
+            "
+          ></div>
+          <br />
+          <p style="font-size: 14px">
+            <span style="color: white"
+              ><lightning-icon
+                icon-name="utility:calculated_insights"
+                size="x-small"
+                class="icon slds-current-color"
+              ></lightning-icon
+            ></span>
+            
+            Communications Engage Rate<strong class="contactData">{engagementScore} %</strong>
+          </p>
+          <!--<div style="text-align: center">
+            <lightning-progress-ring value="67" size="large">
+            </lightning-progress-ring>
+          </div>
+          <div
+            class="slds-progress-bar slds-progress-bar_large"
+            style="background-color: #d8e6fe; border-radius: 10px; height: 8px"
+          >
+            <span
+              class="slds-progress-bar__value"
+              style="
+                width: 67%;
+                background-color: #0b5cab;
+                border-radius: 10px;
+                height: 100%;
+              "
+            ></span>-->
+          <div class="semi-circle-container">
+            <svg viewBox="0 0 100 50" class="semi-circle">
+              <path
+                d="M 10,50 A 40,40 0 0 1 90,50"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="5"
+              />
+              <path
+                d="M 10,50 A 40,40 0 0 1 90,50"
+                fill="none"
+                stroke="#032D60"
+                stroke-width="5"
+                stroke-dasharray="160"
+                stroke-dashoffset={engagementScore}
+              />
+            </svg>
+          </div>
+          <div
+            class="slds-border_bottom"
+            style="
+              border-bottom: 1.8px solid white;
+              margin-top: 5px;
+              margin-bottom: 5px;
+            "
+          ></div>
+          <br />
+          <p style="font-size: 14px">
+            <span style="color: white"
+              ><lightning-icon
+                icon-name="utility:cart"
+                size="x-small"
+                class="icon slds-current-color"
+              ></lightning-icon
+            ></span>
+            Powered by<strong class="contactData"></strong>
+            <span style="color: white"
+              ><lightning-icon
+                icon-name="utility:tableau"
+                size="x-small"
+                class="icon slds-current-color"
+              ></lightning-icon
+            ></span>
+            <span style="color: white"
+              ><lightning-icon
+                icon-name="utility:search"
+                size="x-small"
+                class="icon slds-current-color"
+              ></lightning-icon
+            ></span>
+            <span style="color: white"
+              ><lightning-icon
+                icon-name="utility:heart"
+                size="x-small"
+                class="icon slds-current-color"
+              ></lightning-icon
+            ></span>
+            <span style="color: white"
+              ><lightning-icon
+                icon-name="utility:frozen"
+                size="x-small"
+                class="icon slds-current-color"
+              ></lightning-icon
+            ></span>
+            <span style="color: white"
+              ><lightning-icon
+                icon-name="utility:classic_interface"
+                size="x-small"
+                class="icon slds-current-color"
+              ></lightning-icon
+            ></span>
+          </p>
+          <br />
+        </template>
+
+        <template if:true={error}>
+          <div class="slds-text-color_error">
+            An error occurred while loading the contact record
+          </div>
+        </template>
+      </div>
+    </div>
+  </lightning-card>
+</template>

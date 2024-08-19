@@ -1,0 +1,67 @@
+.contact-header {
+  display: flex;
+  align-items: center;
+}
+.contact-header .slds-avatar {
+  margin-right: 10px;
+}
+.icon {
+  margin-right: 8px;
+}
+
+.contactData {
+  margin-left: 8px;
+}
+
+.custom-card {
+  --slds-c-card-color-background: linear-gradient(
+    90deg,
+    #0176d3 0%,
+    rgba(1, 118, 211, 0.6) 60%,
+    #0176d3 100%
+  );
+  background: var(--slds-c-card-color-background);
+  color: white;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none;
+}
+
+.avatar-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.custom-background {
+  margin: 0 !important;
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+  border: none;
+}
+
+.contact-container {
+  margin: 0;
+}
+
+.slds-card {
+  margin: 0;
+  padding: 0;
+}
+
+.gauge-chart {
+  max-width: 100%;
+  height: auto;
+}
+
+.semi-circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;
+}
+ 
+.semi-circle {
+  width: 125px; /* Tamaño ajustado */
+  height: 125px; /* Tamaño ajustado */
+}
