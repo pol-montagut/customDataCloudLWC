@@ -1,0 +1,21 @@
+.contact-list {
+    list-style-type: none; /* Quita los puntitos */
+    padding: 0;
+    margin: 0;
+}
+
+.contact-item {
+    padding: 8px 0; /* Espaciado arriba y abajo */
+    margin-left: 20px; /* Mayor margen en el lado izquierdo */
+    margin-right: 20px;
+    font-size: 1rem; /* Tamaño de la letra un poco más pequeño */
+    border-bottom: 1px solid #dcdcdc; /* Línea separatoria debajo de cada ítem */
+}
+
+.contact-item:first-child {
+    margin-top: 30px;
+}
+
+.contact-item:last-child {
+    border-bottom: none; /* Elimina la línea inferior del último ítem */
+}

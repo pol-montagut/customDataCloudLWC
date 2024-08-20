@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Lista de Contactos" icon-name="standard:contact">
+        <ul class="contact-list">
+            <template for:each={nombres} for:item="nombre">
+                <li key={nombre} class="contact-item">
+                    {nombre}
+                </li>
+            </template>
+        </ul>
+    </lightning-card>
+</template>
